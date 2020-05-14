@@ -293,6 +293,9 @@ width: 200px;
         justify-content: space-around;
         width: 100%;
     }
+    .today-icon > img {
+        width: 12¢0px;
+        }
     .today-info {
         align-items: flex-start;
     }
