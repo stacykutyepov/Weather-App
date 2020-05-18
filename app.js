@@ -5,6 +5,8 @@ const locationText = document.querySelector('.location-text');
 const todayTemp = document.querySelector('.today-temp');
 const todayIcon = document.querySelector('.today-icon');
 const container = document.querySelector('.container');
+const weatherDaysAll = document.querySelector('.weather-days-all');
+
 
 
 const appController = (function () {
@@ -112,6 +114,7 @@ const appController = (function () {
       weatherObj[day].icons.push(allIcons);
 
     }
+
     return weatherObj;
   }
 
@@ -124,8 +127,39 @@ const appController = (function () {
     todayIcon.style.backgroundImage = `url(./icons/${icon}.png)`;
   }
 
-  const displayAllWeather = (day, icon, tempMax, tempMin) => {
+  const displayAllWeather = (day, { icons, tempHigh, tempLow }) => {
 
+    const weather = document.createElement('div');
+    weather.className = "weather-days";
+
+    weather.insertAdjacentHTML(
+      "beforeend",
+      `
+      <h3 class="day-text">${day}</h3>
+      <div class="day-icon">
+      <img src="./icons/${icons[2]}.png" alt="weather-icon" />
+      </div>
+      <p class="day-temp-max">${tempHigh}°</p>
+      <p class="day-temp-min">${tempLow}°</p>
+      `
+    );
+
+    weatherDaysAll.insertAdjacentElement("beforeend", weather);
+
+  }
+
+  const todayIs = () => {
+    const today = new Date().getUTCDay();
+    const days = [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+    ];
+    return days[today];
   }
 
   //Work with API
@@ -152,7 +186,17 @@ const appController = (function () {
       );
 
       const weather = setUpData(data);
-      console.log(weather);
+      //     const todayIs = new Date().getUTCDay();
+      // console.log(weather);
+      // console.log(new Date().getUTCDay());
+      // console.log(getDayofTheWeek(todayIs));
+
+      for (let [key, value] of Object.entries(weather)) {
+        if (key != todayIs()) {
+          displayAllWeather(key, value);
+        }
+      }
+
       displayLocation(cityName, country);
       displayTodaysWeather(todayTemp, todayIcon)
       console.log(data);

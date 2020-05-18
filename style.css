@@ -264,11 +264,8 @@ body {
     font-size: 1.4rem;
 }
 
-.day-icon{
+.day-icon img {
     width: 100px;
-    height: 100px;
-    background-image: url(./icons/02d.png);
-    background-size: 100% 100%;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 768px) {
@@ -311,20 +308,23 @@ body {
     .today-text {
         margin-bottom: 0;
     }
+
     .weather-days-all {
         display: flex;
         justify-content: space-around;
         width: 100%;
     }
     .weather-days {
-        margin-left: 0.5em;
-        margin-right: 0.5em;
+        margin-left: .5em;
+        margin-right: .5em;
     }
-    .day-icon {
-        width: 80px;
-        height: 80px;
+    .day-icon img {
+        padding-bottom: .5em;
+        width: 60px;
     }
     .day-temp-max {
+        padding-bottom: .2em;
+
         font-size: 2rem;
     }
 }
@@ -364,14 +364,16 @@ body {
         width: 100%;
         padding-bottom: 2em;
     }
+    .weather-today{
+        margin-left: 1.5em;
+    }
     .today-text {
         font-size: 1.5rem;
     }
     .day-text {
         font-size: 1.4rem;
     }
-    .day-icon {
+    .day-icon img {
         width: 120px;
-        height: 120px;
     }
 }
