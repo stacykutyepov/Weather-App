@@ -2,23 +2,49 @@
 const timeText = document.querySelector('.time-text');
 const timeSpec = document.querySelector('.time-spec');
 const locationText = document.querySelector('.location-text');
-const todayTemp = document.querySelector('.today-temp p');
+const todayTemp = document.querySelector('.today-temp');
+const todayIcon = document.querySelector('.today-icon');
+const container = document.querySelector('.container');
 
 
 const appController = (function () {
 
-  // Get time
-  const time = new Date().toLocaleTimeString();
-  const text = time.slice(0, 5)
-  const spec = time.slice(time.length - 2, time.length);
+
+
+  const setUpTheme = () => {
+    const time = new Date().getHours();
+    const changeColor = (prop) => {
+      timeText.style.color = prop;
+      timeSpec.style.color = prop;
+      locationText.style.color = prop;
+    }
+    if (time < 6 || time >= 20) {
+      container.style.backgroundImage = `url(./Back-img/evening_01.jpeg)`;
+      changeColor('white');
+    } else if (time >= 6 && time <= 13) {
+      container.style.backgroundImage = `url(./Back-img/morning_01.jpeg)`;
+      changeColor('black');
+    } else if (time > 13 && time < 20) {
+      container.style.backgroundImage = `url(./Back-img/afternoon_02.jpeg)`
+      changeColor('white');
+    }
+  }
 
   const displayTime = () => {
+    // Get time
+    let text = '';
+    const time = new Date().toLocaleTimeString();
+    const spec = time.slice(time.length - 2, time.length);
+    if (time.length > 10) {
+      text = time.slice(0, 5);
+    } else {
+      text = time.slice(0, 4)
+    }
+    // Display time
     timeText.textContent = text;
     timeSpec.textContent = spec.toLowerCase();
   }
 
-
-  // format time to AM & PM
   const formatTime = (time) => {
     var h = time.slice(11, 13);
     let dd = "AM";
@@ -34,7 +60,7 @@ const appController = (function () {
   };
 
   // Convert UTC to day of the week
-  function getDayofTheWeek(dt) {
+  const getDayofTheWeek = (dt) => {
     var days = [
       "Sun",
       "Mon",
@@ -51,7 +77,7 @@ const appController = (function () {
   }
 
   // Geolocation
-  function getLocation() {
+  const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(setPosition);
     } else {
@@ -59,7 +85,7 @@ const appController = (function () {
     }
   }
 
-  function setPosition(position) {
+  const setPosition = (position) => {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
 
@@ -67,8 +93,7 @@ const appController = (function () {
   }
 
   // Set Up Object with all data
-
-  function setUpData(data) {
+  const setUpData = (data) => {
     var weatherObj = {};
     var allTemp;
     var allIcons;
@@ -90,8 +115,17 @@ const appController = (function () {
     return weatherObj;
   }
 
-  function displayUI(city, country) {
+  const displayLocation = (city, country) => {
     locationText.textContent = `${city}, ${country}`;
+  }
+
+  const displayTodaysWeather = (temp, icon) => {
+    todayTemp.textContent = `${temp}°`;
+    todayIcon.style.backgroundImage = `url(./icons/${icon}.png)`;
+  }
+
+  const displayAllWeather = (day, icon, tempMax, tempMin) => {
+
   }
 
   //Work with API
@@ -105,22 +139,23 @@ const appController = (function () {
 
       const cityName = data.city.name.toUpperCase();
       const country = data.city.country.toUpperCase();
-      const today = Math.floor(data.list[0].main.temp);
+      const todayTemp = Math.floor(data.list[0].main.temp);
+      const todayIcon = data.list[0].weather[0].icon;
       const todayFeelsLike = Math.floor(data.list[0].main.feels_like);
       const tomorrow = data.list[5].main.temp;
 
-      displayUI(cityName, country);
-
-      console.log(data);
 
       console.log(
         `Today's temperature at ${formatTime(
           data.list[0].dt_txt
-        )} is ${today} degreesC, and it feels like ${todayFeelsLike} degreesC`
+        )} is ${todayTemp} degreesC, and it feels like ${todayFeelsLike} degreesC`
       );
 
       const weather = setUpData(data);
       console.log(weather);
+      displayLocation(cityName, country);
+      displayTodaysWeather(todayTemp, todayIcon)
+      console.log(data);
 
     } catch (error) {
       console.log(error);
@@ -130,6 +165,7 @@ const appController = (function () {
 
   function init() {
     getLocation();
+    setUpTheme();
     displayTime();
   }
   init();
