@@ -2,16 +2,20 @@
 const timeText = document.querySelector('.time-text');
 const timeSpec = document.querySelector('.time-spec');
 const locationText = document.querySelector('.location-text');
+const todayTemp = document.querySelector('.today-temp p');
 
 
 const appController = (function () {
 
-// Get time
-const date = () => {
-const time = new Date().toLocaleTimeString();
-console.log(time);
-}
-date();
+  // Get time
+  const time = new Date().toLocaleTimeString();
+  const text = time.slice(0, 5)
+  const spec = time.slice(time.length - 2, time.length);
+
+  const displayTime = () => {
+    timeText.textContent = text;
+    timeSpec.textContent = spec.toLowerCase();
+  }
 
 
   // format time to AM & PM
@@ -28,8 +32,6 @@ date();
     }
     return h + " " + dd;
   };
-
-
 
   // Convert UTC to day of the week
   function getDayofTheWeek(dt) {
@@ -128,6 +130,7 @@ date();
 
   function init() {
     getLocation();
+    displayTime();
   }
   init();
 })();
