@@ -6,12 +6,9 @@ const todayTemp = document.querySelector('.today-temp');
 const todayIcon = document.querySelector('.today-icon');
 const container = document.querySelector('.container');
 const weatherDaysAll = document.querySelector('.weather-days-all');
-
-
+const donut = document.querySelector('.donut');
 
 const appController = (function () {
-
-
 
   const setUpTheme = () => {
     const time = new Date().getHours();
@@ -47,20 +44,6 @@ const appController = (function () {
     timeSpec.textContent = spec.toLowerCase();
   }
 
-  const formatTime = (time) => {
-    var h = time.slice(11, 13);
-    let dd = "AM";
-    var hh = h;
-    if (h >= 12) {
-      h = hh - 12;
-      dd = "PM";
-    }
-    if (h == 0) {
-      h = 12;
-    }
-    return h + " " + dd;
-  };
-
   // Convert UTC to day of the week
   const getDayofTheWeek = (dt) => {
     var days = [
@@ -74,7 +57,6 @@ const appController = (function () {
     ];
     var dayNum = new Date(dt * 1000).getDay();
     var result = days[dayNum];
-    // console.log(result);
     return result;
   }
 
@@ -90,7 +72,6 @@ const appController = (function () {
   const setPosition = (position) => {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
-
     getWeather(latitude, longitude);
   }
 
@@ -119,7 +100,7 @@ const appController = (function () {
   }
 
   const displayLocation = (city, country) => {
-    locationText.textContent = `${city}, ${country}`;
+    locationText.textContent = `${city.toUpperCase()}, ${country.toUpperCase()}`;
   }
 
   const displayTodaysWeather = (temp, icon) => {
@@ -128,7 +109,7 @@ const appController = (function () {
   }
 
   const displayAllWeather = (day, { icons, tempHigh, tempLow }) => {
-
+    donut.style.display = "none";
     const weather = document.createElement('div');
     weather.className = "weather-days";
 
@@ -143,9 +124,7 @@ const appController = (function () {
       <p class="day-temp-min">${tempLow}°</p>
       `
     );
-
     weatherDaysAll.insertAdjacentElement("beforeend", weather);
-
   }
 
   const todayIs = () => {
@@ -171,25 +150,12 @@ const appController = (function () {
       );
       const data = await result.json();
 
-      const cityName = data.city.name.toUpperCase();
-      const country = data.city.country.toUpperCase();
+      const weather = setUpData(data);
+      const cityName = data.city.name;
+      const country = data.city.country;
       const todayTemp = Math.floor(data.list[0].main.temp);
       const todayIcon = data.list[0].weather[0].icon;
-      const todayFeelsLike = Math.floor(data.list[0].main.feels_like);
-      const tomorrow = data.list[5].main.temp;
 
-
-      console.log(
-        `Today's temperature at ${formatTime(
-          data.list[0].dt_txt
-        )} is ${todayTemp} degreesC, and it feels like ${todayFeelsLike} degreesC`
-      );
-
-      const weather = setUpData(data);
-      //     const todayIs = new Date().getUTCDay();
-      // console.log(weather);
-      // console.log(new Date().getUTCDay());
-      // console.log(getDayofTheWeek(todayIs));
 
       for (let [key, value] of Object.entries(weather)) {
         if (key != todayIs()) {
@@ -199,13 +165,11 @@ const appController = (function () {
 
       displayLocation(cityName, country);
       displayTodaysWeather(todayTemp, todayIcon)
-      console.log(data);
 
     } catch (error) {
       console.log(error);
     }
   }
-
 
   function init() {
     getLocation();
@@ -214,11 +178,3 @@ const appController = (function () {
   }
   init();
 })();
-
-
-//UI controller
-const UIController = (() => {
-
-})();
-
-// Global controller

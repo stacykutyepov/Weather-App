@@ -152,6 +152,26 @@ body {
     margin: auto auto;
 }
 
+@keyframes donut-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.donut {
+    margin: 4em;
+    display: inline-block;
+    border: 8px solid rgba(0, 0, 0, 0.4);
+    border-left-color: rgba(255, 200, 40, 0.7);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: donut-spin 1.2s linear infinite;
+}
+
 .data-container {
     display: flex;
     flex-direction: row;
@@ -315,15 +335,15 @@ body {
         width: 100%;
     }
     .weather-days {
-        margin-left: .5em;
-        margin-right: .5em;
+        margin-left: 0.5em;
+        margin-right: 0.5em;
     }
     .day-icon img {
-        padding-bottom: .5em;
+        padding-bottom: 0.5em;
         width: 60px;
     }
     .day-temp-max {
-        padding-bottom: .2em;
+        padding-bottom: 0.2em;
 
         font-size: 2rem;
     }
@@ -345,7 +365,7 @@ body {
         align-items: baseline;
     }
     .time-text {
-        font-size: 3rem;
+        font-size: 4rem;
     }
     .time-spec {
         font-size: 2rem;
@@ -364,7 +384,7 @@ body {
         width: 100%;
         padding-bottom: 2em;
     }
-    .weather-today{
+    .weather-today {
         margin-left: 1.5em;
     }
     .today-text {
