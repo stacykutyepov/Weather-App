@@ -43,24 +43,6 @@ const appController = (function () {
 
   }
 
-
-
-
-  // const displayTime = () => {
-  //   // Get time
-  //   let text = '';
-  //   const time = new Date().toLocaleTimeString();
-  //   const spec = time.slice(time.length - 2, time.length);
-  //   if (time.length > 10) {
-  //     text = time.slice(0, 5);
-  //   } else {
-  //     text = time.slice(0, 4)
-  //   }
-  //   // Display time
-  //   timeText.textContent = text;
-  //   timeSpec.textContent = spec.toLowerCase();
-  // }
-
   // Convert UTC to day of the week
   const getDayofTheWeek = (dt) => {
     var days = [
@@ -192,7 +174,6 @@ const appController = (function () {
     getLocation();
     setUpTheme();
     formatAMPM(new Date);
-    // displayTime();
   }
   init();
 })();
