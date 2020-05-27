@@ -29,20 +29,37 @@ const appController = (function () {
     }
   }
 
-  const displayTime = () => {
-    // Get time
-    let text = '';
-    const time = new Date().toLocaleTimeString();
-    const spec = time.slice(time.length - 2, time.length);
-    if (time.length > 10) {
-      text = time.slice(0, 5);
-    } else {
-      text = time.slice(0, 4)
-    }
-    // Display time
-    timeText.textContent = text;
-    timeSpec.textContent = spec.toLowerCase();
+  function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    const time = hours + ':' + minutes;
+    const spec = ampm;
+    return strTime;
+
   }
+
+
+
+
+  // const displayTime = () => {
+  //   // Get time
+  //   let text = '';
+  //   const time = new Date().toLocaleTimeString();
+  //   const spec = time.slice(time.length - 2, time.length);
+  //   if (time.length > 10) {
+  //     text = time.slice(0, 5);
+  //   } else {
+  //     text = time.slice(0, 4)
+  //   }
+  //   // Display time
+  //   timeText.textContent = text;
+  //   timeSpec.textContent = spec.toLowerCase();
+  // }
 
   // Convert UTC to day of the week
   const getDayofTheWeek = (dt) => {
@@ -174,7 +191,8 @@ const appController = (function () {
   function init() {
     getLocation();
     setUpTheme();
-    displayTime();
+    formatAMPM(new Date);
+    // displayTime();
   }
   init();
 })();
