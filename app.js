@@ -152,7 +152,6 @@ const appController = (function () {
       "Fri",
       "Sat",
     ];
-    console.log(days[today]);
     return days[today];
   }
 
