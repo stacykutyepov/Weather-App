@@ -142,7 +142,7 @@ const appController = (function () {
   }
 
   const todayIs = () => {
-    const today = new Date().getUTCDay();
+    const today = new Date().getDay();
     const days = [
       "Sun",
       "Mon",
