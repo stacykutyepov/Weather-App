@@ -1,4 +1,4 @@
-// Weather Forecast APP
+const time = document.querySelector('.time');
 const timeText = document.querySelector('.time-text');
 const timeSpec = document.querySelector('.time-spec');
 const locationText = document.querySelector('.location-text');
@@ -29,21 +29,7 @@ const appController = (function () {
     }
   }
 
-  // function formatAMPM(date) {
-  //   var hours = date.getHours();
-  //   var minutes = date.getMinutes();
-  //   var ampm = hours >= 12 ? 'pm' : 'am';
-  //   hours = hours % 12;
-  //   hours = hours ? hours : 12; // the hour '0' should be '12'
-  //   minutes = minutes < 10 ? '0' + minutes : minutes;
-  //   var strTime = hours + ':' + minutes + ' ' + ampm;
-  //   const time = hours + ':' + minutes;
-  //   const spec = ampm;
-  //   return strTime;
-
-  // }
-
-   const displayTime = () => {
+  const displayTime = () => {
     // Get time
     let text = '';
     const time = new Date().toLocaleTimeString('en-US');
@@ -155,6 +141,10 @@ const appController = (function () {
     return days[today];
   }
 
+  const refreshTime = () => {
+    return setInterval(displayTime, 1000);
+  }
+
   //Work with API
   async function getWeather(latitude, longitude) {
     const key = `494a76302024db23035d814ee5934e4e`;
@@ -188,8 +178,7 @@ const appController = (function () {
   function init() {
     getLocation();
     setUpTheme();
-    // formatAMPM(new Date);
-    displayTime(); 
+    refreshTime()
   }
   init();
 })();
