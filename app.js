@@ -17,6 +17,7 @@ const appController = (function () {
       timeText.style.color = prop;
       timeSpec.style.color = prop;
       locationText.style.color = prop;
+      timeZone.style.color = prop;
     }
     if (time < 6 || time >= 20) {
       container.style.backgroundImage = `url(./Back-img/evening_01.jpeg)`;
