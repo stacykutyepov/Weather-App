@@ -1,6 +1,7 @@
 const time = document.querySelector('.time');
 const timeText = document.querySelector('.time-text');
 const timeSpec = document.querySelector('.time-spec');
+const timeZone = document.querySelector('.time-zone');
 const locationText = document.querySelector('.location-text');
 const todayTemp = document.querySelector('.today-temp');
 const todayIcon = document.querySelector('.today-icon');
@@ -32,6 +33,7 @@ const appController = (function () {
   const displayTime = () => {
     // Get time
     let text = '';
+    const today = new Date();
     const time = new Date().toLocaleTimeString('en-US');
     const spec = time.slice(time.length - 2, time.length);
     if (time.length > 10) {
@@ -42,6 +44,7 @@ const appController = (function () {
     // Display time
     timeText.textContent = text;
     timeSpec.textContent = spec.toLowerCase();
+    timeZone.textContent = today.toLocaleDateString(undefined, { timeZoneName: 'long' }).split(",")[1].replace(/[^A-Z]/g, '');
   }
 
   // Convert UTC to day of the week
