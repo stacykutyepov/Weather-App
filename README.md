@@ -1,15 +1,26 @@
 # Weather-App
-Personal Weather App, which displays weather up to 5 days. It shows the maximum and minimum temperature for the day.
-<div align="center">
-    <p>Visit a Website: <a href="https://codemyjourney.github.io/Weather-App/">Weather App</a></p>
-<h2>iPhone X Preview</h2>
-    <img src="./UI-Preview/iPhoneX.jpg" alt="iphone-preview" height="500"></a>
-  </br>
-<h2>iPad Preview</h2>
-    <img src="./UI-Preview/iPad.jpg" alt="ipad Preview" height="500"></a>
-<h2>Desktop Preview</h2>
-     <img src="./UI-Preview/desktop.changes.jpg" alt="website Preview" width="70%"></a>
-  </br>
-  </br>
-  </div>
-  
+<image width="100%" src="https://user-images.githubusercontent.com/62475313/95633529-d8291100-0a55-11eb-8a44-51d83eece683.png" frameborder="0" ></image>
+
+</br>
+</br>
+</br>
+
+**Weather App, which displays weather up to 5 days. It shows the maximum and the minimum temperature for the day.**
+
+---
+
+### &#9758; Overview and Goals
+
+</br>
+
+**Responsive Web Application** created using **Vanilla JavaScript, HTML5 & CSS3.**
+
+Implemented the **AJAX call** that retrieves data from the **OpenWeather API.**
+
+Background image **changes depending on time.**
+
+</br>
+</br>
+</br>
+
+<image width="100%" src="https://user-images.githubusercontent.com/62475313/95633527-d7907a80-0a55-11eb-915c-4f02b5bcc198.png" frameborder="0" ></image>
